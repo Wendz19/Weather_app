@@ -19,6 +19,34 @@ let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchTemperature);
 
 //
+let now = new Date();
+let minutes = now.getMinutes();
+let hours = now.getHours();
+let newHour = document.querySelector("#hours");
+newHour.innerHTML = hours;
+let newMinutes = document.querySelector("#minutes");
+newMinutes.innerHTML = minutes;
+
+let days = [
+  "Sunday",
+  "Monday",
+  "Tueday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+let day = days[now.getDay()];
+let newDay = document.querySelector("#day");
+newDay.innerHTML = day;
+
+if (hours < 10) {
+  hours = `0${hours}`;
+}
+if (minutes > 10) {
+  minutes = `0${minutes}`;
+}
+
 //
 //
 //
