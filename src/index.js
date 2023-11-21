@@ -2,6 +2,15 @@ function getData(response) {
   let temperature = response.data.temperature.current;
   let currentTemp = document.querySelector("#temperature");
   currentTemp.innerHTML = Math.round(temperature);
+  let humidity = response.data.temperature.humidity;
+  let currentHumidity = document.querySelector("#humidity");
+  currentHumidity.innerHTML = Math.round(humidity);
+  let windSpeed = response.data.wind.speed;
+  let currentWindSpeed = document.querySelector("#wind-speed");
+  currentWindSpeed.innerHTML = windSpeed;
+  let time = document.querySelector("#time");
+  time.innerHTML = `Tuesday 18:27`;
+  let date = response.data.time * 1000;
 }
 
 function searchTemperature(event) {
@@ -19,34 +28,27 @@ let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchTemperature);
 
 //
-let now = new Date();
-let minutes = now.getMinutes();
-let hours = now.getHours();
-let newHour = document.querySelector("#hours");
-newHour.innerHTML = hours;
-let newMinutes = document.querySelector("#minutes");
-newMinutes.innerHTML = minutes;
+function formatDate(date) {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  let newDay = document.querySelector("#day");
+  newDay.innerHTML = day;
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tueday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-let newDay = document.querySelector("#day");
-newDay.innerHTML = day;
-
-if (hours < 10) {
-  hours = `0${hours}`;
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
 }
-if (minutes > 10) {
-  minutes = `0${minutes}`;
-}
-
 //
 //
 //
