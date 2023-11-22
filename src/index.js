@@ -1,5 +1,6 @@
 function getData(response) {
   let temperature = document.querySelector("#temperature");
+  let headingElement = document.querySelector("#city");
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind-speed");
   let description = document.querySelector("#description");
@@ -8,6 +9,7 @@ function getData(response) {
   let icon = document.querySelector("#icon");
 
   temperature.innerHTML = Math.round(response.data.temperature.current);
+  headingElement.innerHTML = response.data.city;
   humidity.innerHTML = `${response.data.temperature.humidity}%`;
   windSpeed.innerHTML = `${response.data.wind.speed}km/h`;
   description.innerHTML = response.data.condition.description;
@@ -15,20 +17,21 @@ function getData(response) {
   icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
 
-function searchTemperature(event) {
-  event.preventDefault();
-  let headingElement = document.querySelector("#city");
-  let searchInput = document.querySelector("#search-bar");
-  headingElement.innerHTML = searchInput.value;
-  let cityInput = document.querySelector("#search-bar");
-  let city = cityInput.value;
+function searchCity(city) {
   let apiKey = `43dft5a84ob9a003f0c493a68e6b1dbe`;
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(getData);
 }
 
+function handleSearchSubmit(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-bar");
+  searchCity(searchInput.value);
+}
 let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", searchTemperature);
+searchForm.addEventListener("submit", handleSearchSubmit);
+
+searchCity(`Johannesburg`);
 
 //
 function formatDate(date) {
