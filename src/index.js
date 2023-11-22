@@ -1,21 +1,17 @@
 function getData(response) {
-  let temperature = response.data.temperature.current;
-  let currentTemp = document.querySelector("#temperature");
-  let humidity = response.data.temperature.humidity;
-  let currentHumidity = document.querySelector("#humidity");
-  let windSpeed = response.data.wind.speed;
-  let currentWindSpeed = document.querySelector("#wind-speed");
+  let temperature = document.querySelector("#temperature");
+  let humidity = document.querySelector("#humidity");
+  let windSpeed = document.querySelector("#wind-speed");
+  let description = document.querySelector("#description");
   let time = document.querySelector("#time");
   let date = new Date(response.data.time * 1000);
-  let description = response.data.condition.description;
-  let currentDescription = document.querySelector("#description");
   let icon = document.querySelector("#icon");
 
-  currentTemp.innerHTML = Math.round(temperature);
-  currentHumidity.innerHTML = Math.round(humidity);
-  currentWindSpeed.innerHTML = windSpeed;
+  temperature.innerHTML = Math.round(response.data.temperature.current);
+  humidity.innerHTML = `${response.data.temperature.humidity}%`;
+  windSpeed.innerHTML = `${response.data.wind.speed}km/h`;
+  description.innerHTML = response.data.condition.description;
   time.innerHTML = formatDate(date);
-  currentDescription.innerHTML = description;
   icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
 
