@@ -65,6 +65,9 @@ main {
 .details strong {
   color: #f65282;
 }
+.weather-app-icon {
+  width: 96px;
+}
 
 a {
   color: #885df1;

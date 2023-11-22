@@ -1,16 +1,22 @@
 function getData(response) {
   let temperature = response.data.temperature.current;
   let currentTemp = document.querySelector("#temperature");
-  currentTemp.innerHTML = Math.round(temperature);
   let humidity = response.data.temperature.humidity;
   let currentHumidity = document.querySelector("#humidity");
-  currentHumidity.innerHTML = Math.round(humidity);
   let windSpeed = response.data.wind.speed;
   let currentWindSpeed = document.querySelector("#wind-speed");
-  currentWindSpeed.innerHTML = windSpeed;
   let time = document.querySelector("#time");
-  time.innerHTML = `Tuesday 18:27`;
-  let date = response.data.time * 1000;
+  let date = new Date(response.data.time * 1000);
+  let description = response.data.condition.description;
+  let currentDescription = document.querySelector("#description");
+  let icon = document.querySelector("#icon");
+
+  currentTemp.innerHTML = Math.round(temperature);
+  currentHumidity.innerHTML = Math.round(humidity);
+  currentWindSpeed.innerHTML = windSpeed;
+  time.innerHTML = formatDate(date);
+  currentDescription.innerHTML = description;
+  icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
 
 function searchTemperature(event) {
@@ -24,11 +30,14 @@ function searchTemperature(event) {
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(getData);
 }
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchTemperature);
 
 //
 function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
   let days = [
     "Sunday",
     "Monday",
@@ -38,9 +47,7 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
-  let day = days[now.getDay()];
-  let newDay = document.querySelector("#day");
-  newDay.innerHTML = day;
+  let day = days[date.getDay()];
 
   if (hours < 10) {
     hours = `0${hours}`;
@@ -48,6 +55,8 @@ function formatDate(date) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+
+  return `${day} ${hours}:${minutes}`;
 }
 //
 //
