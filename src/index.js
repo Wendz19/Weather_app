@@ -59,9 +59,35 @@ function formatDate(date) {
 }
 //
 //
-//
 
-//
-//
+function showForecast() {
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="col-2">
+                    <div class="forecast-day">
+                        ${day}
+                    </div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/few-clouds-day.png" alt=""
+                        width="42">
+                    <div class="forecast-temperature">
+                        <span class="forecast-max-temperature">
+                        <strong>10°</strong>
+                        </span>
+                        <span class="forecast-min-temperature">8°</span>
+                    </div>
+                </div>
+                `;
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+showForecast();
+
 //
 //
