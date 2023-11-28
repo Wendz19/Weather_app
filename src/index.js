@@ -16,13 +16,13 @@ function getData(response) {
   time.innerHTML = formatDate(date);
   icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
-
+//
 function searchCity(city) {
   let apiKey = `43dft5a84ob9a003f0c493a68e6b1dbe`;
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(getData);
 }
-
+//
 function handleSearchSubmit(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-bar");
